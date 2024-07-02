@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WINT User Onboarding</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="https://info.wint.ai/hubfs/header-550x150px%20-x2.jpg"
+        alt="WINT-Logo-RGB_Primary_Tagline_Gray-Cyan"
+        class="header-image"
+      />
+
+      <div class="intro-text">
+        <p>
+          <strong>We are thrilled to have you join us on your leak-free journey!</strong>
+        </p>
+        <p>
+          WINT Water Intelligence is dedicated to helping businesses reduce
+          their environmental footprint by preventing the hazards, costs, waste,
+          and the sustainability impact of water leaks and wastage throughout a
+          building's complete lifecycle – from construction to the operational
+          phase. Utilizing the power of artificial intelligence (AI) and IoT
+          technology, WINT provides a solution for commercial facilities,
+          construction projects and industrial manufacturers looking to cut
+          water waste and its associated carbon emissions and to mitigate water
+          damage in the property.
+        </p>
+      </div>
+
+      <h1>
+        <span style="text-decoration: underline">Onboard Your WINT Users</span>
+      </h1>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <div class="user-selection">
+        <label for="userCount">Select number of users:</label>
+        <select id="userCount">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button id="generateForms">Generate User Forms</button>
+      </div>
+
+      <form id="userForm" action="/submit" method="post" style="display: none">
+        <div id="userEntries">
+          <!-- User entries will be generated here -->
+        </div>
+
+        <div class="warning-text">
+          <p>
+            <strong>
+              <span style="color: #cc0201">
+                ⚠️ Never wait to be contacted by WINT. It's crucial to follow
+                system alerts. Ensure that all users receive notifications from
+                WINT mobile app. Make sure to save
+                
+                  href="https://wint.ai/contact/contact-support/"
+                  target="_blank"
+                  rel="noopener"
+                >WINT numbers</a>
+                in your phone or address book.
+              </span>
+            </strong>
+          </p>
+        </div>
+
+        <div class="next-steps">
+          <p><strong>Next Steps:</strong></p>
+          <ol>
+            <li>
+              <strong>User Setup:</strong> After you provide the user details in
+              the table above, our team will set up your user account.
+            </li>
+            <li>
+              <strong>Log-In Information:</strong> You will receive a login
+              email with your credentials, links to tutorial videos, and
+              guidelines to help you get started.
+            </li>
+            <li>
+              <strong>Training Center:</strong> Use the provided link to access
+              our training center and learn about the key topics: Mobile App,
+              Portal, Water Events, and Manual Operation.
+            </li>
+            <li>
+              <strong>Support:</strong> Please contact our 24/7 support for any
+              additional assistance.
+            </li>
+          </ol>
+        </div>
+
+        <button type="submit">Submit User Information</button>
+      </form>
+
+      <img
+        src="https://info.wint.ai/hubfs/footer-%20OP1-550x100px--x2.jpg"
+        alt="footer- OP1-550x100px--x2"
+        class="footer-image"
+      />
+
+      <div class="privacy-policy">
+        <p>
+          WINT needs this contact information to contact you about our products
+          and services. You may unsubscribe from these communications at
+          anytime. For information on how to unsubscribe, as well as our privacy
+          practices and commitment to protecting your privacy, check out our
+          Privacy Policy.
+        </p>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>
