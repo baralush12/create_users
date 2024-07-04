@@ -5,7 +5,7 @@ from io import StringIO
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-
+import csv
 # Load environment variables
 load_dotenv()
 
@@ -21,6 +21,9 @@ app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER')
 app.config['RECIPIENT_EMAIL'] = os.getenv('RECIPIENT_EMAIL')  # Add this line
 
 app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY')
+
+debug_mode = os.getenv('FLASK_DEBUG', 'False') == 'True'
+
 
 mail = Mail(app)
 
@@ -53,7 +56,7 @@ def submit():
     df['timestamp'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     output = StringIO()
-    df.to_csv(output, index=False)
+    df.to_csv(output, index=False, quoting=csv.QUOTE_NONNUMERIC, encoding='utf-8-sig')
     output.seek(0)
 
     # Create the email
@@ -64,7 +67,7 @@ def submit():
     # Attach the CSV file
     msg.attach(f"wint_users_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv", 
                "text/csv", 
-               output.getvalue())
+               output.getvalue().encode('utf-8-sig'))
 
     try:
         # Send the email
@@ -79,4 +82,4 @@ def submit():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(debug=1)
+    app.run(debug=debug_mode)

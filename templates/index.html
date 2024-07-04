@@ -19,7 +19,7 @@
 
       <div class="intro-text">
         <p>
-          <strong>We are thrilled to have you join us on your leak-free journey!</strong>
+          <strong>We are excited to welcome you on board!</strong>
         </p>
         <p>
           WINT Water Intelligence is dedicated to helping businesses reduce
@@ -35,16 +35,21 @@
       </div>
 
       <h1>
-        <span style="text-decoration: underline">Onboard Your WINT Users</span>
+        <span style="text-decoration: underline"
+          >Set up your WINT user account!</span
+        >
       </h1>
+      <p>
+        To get started with the WINT app and portal, please fill out this form
+        <strong>for each user.</strong>
+        This will ensure everyone has the access they need to enjoy all the
+        features and manage water effectively.
+      </p>
 
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          {% for category, message in messages %}
-            <div class="alert alert-{{ category }}">{{ message }}</div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
 
       <div class="user-selection">
         <label for="userCount">Select number of users:</label>
@@ -67,14 +72,16 @@
           <p>
             <strong>
               <span style="color: #cc0201">
-                ⚠️ Never wait to be contacted by WINT. It's crucial to follow
-                system alerts. Ensure that all users receive notifications from
-                WINT mobile app. Make sure to save
-                
+                ⚠️ Remember: Never wait to be contacted by WINT. It is essential
+                to actively monitor system alerts. Make sure all users receive
+                notifications via the WINT mobile app and save WINT contact
+                numbers in your phone or address book for instant access.
+                <a
                   href="https://wint.ai/contact/contact-support/"
                   target="_blank"
                   rel="noopener"
-                >WINT numbers</a>
+                  >WINT numbers</a
+                >
                 in your phone or address book.
               </span>
             </strong>
