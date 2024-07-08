@@ -8,6 +8,16 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/styles.css') }}"
     />
+    <style>
+      .hidden {
+        display: none;
+      }
+      .errors {
+        color: red;
+        font-size: 0.875em;
+        margin-top: 0.25em;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -18,9 +28,7 @@
       />
 
       <div class="intro-text">
-        <p>
-          <strong>We are excited to welcome you on board!</strong>
-        </p>
+        <p><strong>We are excited to welcome you on board!</strong></p>
         <p>
           WINT Water Intelligence is dedicated to helping businesses reduce
           their environmental footprint by preventing the hazards, costs, waste,
@@ -41,9 +49,8 @@
       </h1>
       <p>
         To get started with the WINT app and portal, please fill out this form
-        <strong>for each user.</strong>
-        This will ensure everyone has the access they need to enjoy all the
-        features and manage water effectively.
+        <strong>for each user.</strong> This will ensure everyone has the access
+        they need to enjoy all the features and manage water effectively.
       </p>
 
       {% with messages = get_flashed_messages(with_categories=true) %} {% if
@@ -63,9 +70,97 @@
         <button id="generateForms">Generate User Forms</button>
       </div>
 
-      <form id="userForm" action="/submit" method="post" style="display: none">
+      <form
+        id="userForm"
+        action="/submit"
+        method="post"
+        class="{% if not forms %}hidden{% endif %}"
+      >
+        <input
+          type="hidden"
+          name="userCount"
+          id="formUserCount"
+          value="{{ user_count }}"
+        />
         <div id="userEntries">
-          <!-- User entries will be generated here -->
+          {% if forms %} {% for form in forms %}
+          <div class="user-entry">
+            <h2>User {{ loop.index }}</h2>
+            <div class="form-group">
+              {{ form.firstname.label }} {{ form.firstname(size=32,
+              value=form.firstname.data) }} {% for error in
+              form.firstname.errors %}
+              <div class="errors">{{ error }}</div>
+              {% endfor %}
+            </div>
+            <div class="form-group">
+              {{ form.lastname.label }} {{ form.lastname(size=32,
+              value=form.lastname.data) }} {% for error in form.lastname.errors
+              %}
+              <div class="errors">{{ error }}</div>
+              {% endfor %}
+            </div>
+            <div class="form-group">
+              {{ form.email.label }} {{ form.email(size=32,
+              value=form.email.data) }} {% for error in form.email.errors %}
+              <div class="errors">{{ error }}</div>
+              {% endfor %}
+            </div>
+            <div class="form-group">
+              {{ form.mobilephone.label }} {{ form.mobilephone(size=32,
+              value=form.mobilephone.data) }} {% for error in
+              form.mobilephone.errors %}
+              <div class="errors">{{ error }}</div>
+              {% endfor %}
+            </div>
+            <div class="form-group">
+              {{ form.phone.label }} {{ form.phone(size=32,
+              value=form.phone.data) }} {% for error in form.phone.errors %}
+              <div class="errors">{{ error }}</div>
+              {% endfor %}
+            </div>
+            <div class="form-group">
+              {{ form.company.label }} {{ form.company(size=32,
+              value=form.company.data) }} {% for error in form.company.errors %}
+              <div class="errors">{{ error }}</div>
+              {% endfor %}
+            </div>
+            <div class="form-group">
+              {{ form.jobtitle.label }} {{ form.jobtitle(size=32,
+              value=form.jobtitle.data) }} {% for error in form.jobtitle.errors
+              %}
+              <div class="errors">{{ error }}</div>
+              {% endfor %}
+            </div>
+            <div class="form-group">
+              {{ form.country.label }} {{ form.country(value=form.country.data)
+              }} {% for error in form.country.errors %}
+              <div class="errors">{{ error }}</div>
+              {% endfor %}
+            </div>
+            <div class="form-group">
+              {{ form.enable_valve_control.label }} {{
+              form.enable_valve_control(checked=form.enable_valve_control.data)
+              }} {% for error in form.enable_valve_control.errors %}
+              <div class="errors">{{ error }}</div>
+              {% endfor %}
+            </div>
+            <div class="form-group">
+              {{ form.escalation_level.label }} {{
+              form.escalation_level(value=form.escalation_level.data) }} {% for
+              error in form.escalation_level.errors %}
+              <div class="errors">{{ error }}</div>
+              {% endfor %}
+            </div>
+            <div class="form-group">
+              {{ form.comments.label }} {{ form.comments(rows=4,
+              value=form.comments.data) }} {% for error in form.comments.errors
+              %}
+              <div class="errors">{{ error }}</div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %} {% endif %}
         </div>
 
         <div class="warning-text">

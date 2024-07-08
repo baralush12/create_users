@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const generateFormsBtn = document.getElementById("generateForms");
   const userForm = document.getElementById("userForm");
   const userEntries = document.getElementById("userEntries");
+  const formUserCount = document.getElementById("formUserCount");
 
   function createUserEntry(index) {
     const userEntry = document.createElement("div");
@@ -10,37 +11,37 @@ document.addEventListener("DOMContentLoaded", function () {
     userEntry.innerHTML = `
         <h2>User ${index + 1}</h2>
         <div class="form-group">
-          <label for="firstname_${index}">First Name *</label>
-          <input type="text" name="firstname_${index}" required>
+          <label for="user_${index}-firstname">First Name *</label>
+          <input type="text" name="user_${index}-firstname" required>
         </div>
         <div class="form-group">
-          <label for="lastname_${index}">Last Name *</label>
-          <input type="text" name="lastname_${index}" required>
+          <label for="user_${index}-lastname">Last Name *</label>
+          <input type="text" name="user_${index}-lastname" required>
         </div>
         <div class="form-group">
-          <label for="email_${index}">Business Email *</label>
-          <input type="email" name="email_${index}" required>
+          <label for="user_${index}-email">Business Email *</label>
+          <input type="email" name="user_${index}-email" required>
           <div class="field-description">Must have the same domain as your company.</div>
         </div>
         <div class="form-group">
-          <label for="mobilephone_${index}">Mobile Phone Number *</label>
-          <input type="tel" name="mobilephone_${index}" required>
+          <label for="user_${index}-mobilephone">Mobile Phone Number *</label>
+          <input type="tel" name="user_${index}-mobilephone" required>
         </div>
         <div class="form-group">
-          <label for="phone_${index}">Office Number</label>
-          <input type="tel" name="phone_${index}">
+          <label for="user_${index}-phone">Office Number</label>
+          <input type="tel" name="user_${index}-phone">
         </div>
         <div class="form-group">
-          <label for="company_${index}">Company Name *</label>
-          <input type="text" name="company_${index}" required>
+          <label for="user_${index}-company">Company Name *</label>
+          <input type="text" name="user_${index}-company" required>
         </div>
         <div class="form-group">
-          <label for="jobtitle_${index}">Job Title *</label>
-          <input type="text" name="jobtitle_${index}" required>
+          <label for="user_${index}-jobtitle">Job Title *</label>
+          <input type="text" name="user_${index}-jobtitle" required>
         </div>
         <div class="form-group">
-          <label for="country_${index}">Country *</label>
-          <select name="country_${index}" required>
+          <label for="user_${index}-country">Country *</label>
+          <select name="user_${index}-country" required>
             <option value="">Please Select</option>
             <option value="United States">United States</option>
             <option value="United Kingdom">United Kingdom</option>
@@ -50,14 +51,14 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="form-group">
           <label>
-            <input type="checkbox" name="special_attention__c_${index}">
+            <input type="checkbox" name="user_${index}-enable_valve_control">
             <span>Enable Open/Close Valve Control</span>
           </label>
           <div class="field-description">I agree that this user can remotely control the valves on my sites.</div>
         </div>
         <div class="form-group">
-          <label for="alert_order__c_${index}">User Escalation Level *</label>
-          <select name="alert_order__c_${index}" required>
+          <label for="user_${index}-escalation_level">User Escalation Level *</label>
+          <select name="user_${index}-escalation_level" required>
             <option value="">Please Select</option>
             <option value="1. Main contact">1. Main contact</option>
             <option value="2. Second contact">2. Second contact</option>
@@ -74,8 +75,8 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
         </div>
         <div class="form-group">
-          <label for="message_${index}">Comments</label>
-          <textarea name="message_${index}" placeholder="We are here for you! Tell us what's on your mind :)"></textarea>
+          <label for="user_${index}-comments">Comments</label>
+          <textarea name="user_${index}-comments" placeholder="We are here for you! Tell us what's on your mind :)"></textarea>
         </div>
       `;
     return userEntry;
@@ -83,10 +84,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   generateFormsBtn.addEventListener("click", function () {
     const userCount = parseInt(userCountSelect.value);
+    formUserCount.value = userCount;
     userEntries.innerHTML = "";
     for (let i = 0; i < userCount; i++) {
       userEntries.appendChild(createUserEntry(i));
     }
-    userForm.style.display = "block";
+    userForm.classList.remove("hidden");
   });
+
+  // Re-populate forms if they exist
+  if (userForm.classList.contains("hidden") === false) {
+    const userCount = parseInt(formUserCount.value);
+    userEntries.innerHTML = "";
+    for (let i = 0; i < userCount; i++) {
+      userEntries.appendChild(createUserEntry(i));
+    }
+    userForm.classList.remove("hidden");
+  }
 });
