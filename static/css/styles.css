@@ -137,3 +137,51 @@ button:hover {
   background-color: #dff0d8;
   border-color: #d6e9c6;
 }
+
+/* thank you page */
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.rtl th,
+.rtl td {
+  text-align: right;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1,
+h2,
+h3 {
+  color: #333;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

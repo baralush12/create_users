@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="{{ language }}" {% if language == 'he' %}dir="rtl"{% endif %}>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if language == 'he' %}תודה על ההרשמה{% else %}Thank You for Submitting{% endif %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="{% if language == 'he' %}rtl{% endif %}">
+    <div class="container">
+        <h1>{% if language == 'he' %}תודה על ההרשמה!{% else %}Thank You for Submitting!{% endif %}</h1>
+        
+        <p>{% if language == 'he' %}
+            הטופס נשלח בהצלחה. להלן סיכום המידע שהוגש:
+        {% else %}
+            Your form has been successfully submitted. Here's a summary of the information you provided:
+        {% endif %}</p>
+
+        <h2>{% if language == 'he' %}מידע על המשתמשים{% else %}User Information{% endif %}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>{% if language == 'he' %}שם פרטי{% else %}First Name{% endif %}</th>
+                    <th>{% if language == 'he' %}שם משפחה{% else %}Last Name{% endif %}</th>
+                    <th>{% if language == 'he' %}דוא"ל{% else %}Email{% endif %}</th>
+                    <th>{% if language == 'he' %}טלפון נייד{% else %}Mobile Phone{% endif %}</th>
+                    <th>{% if language == 'he' %}תפקיד{% else %}Job Title{% endif %}</th>
+                    <th>{% if language == 'he' %}רמת הסלמה{% else %}Escalation Level{% endif %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in data %}
+                <tr>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.lastname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.mobilephone }}</td>
+                    <td>{{ user.jobtitle }}</td>
+                    <td>{{ user.escalation_level }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>{% if language == 'he' %}מידע נוסף{% else %}Additional Information{% endif %}</h3>
+        <p>{% if language == 'he' %}זמן ההגשה:{% else %}Submission Time:{% endif %} {{ submission_time }}</p>
+        <p>{% if language == 'he' %}מספר משתמשים שנרשמו:{% else %}Number of Users Registered:{% endif %} {{ data|length }}</p>
+
+        <p>{% if language == 'he' %}
+            תודה שבחרת ב-WINT. צוות התמיכה שלנו יצור איתך קשר בקרוב לגבי השלבים הבאים.
+        {% else %}
+            Thank you for choosing WINT. Our support team will be in touch with you shortly regarding the next steps.
+        {% endif %}</p>
+
+        <a href="{{ url_for('index') }}">{% if language == 'he' %}חזרה לדף הבית{% else %}Return to Home Page{% endif %}</a>
+    </div>
+</body>
+</html>

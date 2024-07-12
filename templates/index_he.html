@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WINT User Onboarding - Hebrew</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+    <style>
+      body {
+        direction: rtl;
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="https://info.wint.ai/hubfs/header-heb-550x150px--x2.jpg"
+        alt="WINT-Logo-RGB_Primary_Tagline_Gray-Cyan"
+        class="header-image"
+      />
+
+      <div class="intro-text">
+        <p><strong>איזה כיף שהצטרפת אלינו!</strong></p>
+        <p>
+          אנו בחברת WINT, רוצים לעזור לך למנוע דליפות, נזקי מים ופגיעה בעבודה
+          השוטפת, לנטר את השימוש במים, לנתח דפוסי שימוש במים ובכך לחסוך מים,
+          לזהות שימושים חריגים, ולמנוע בזבוז מים ופליטת גזי חממה ובכך לשמור על
+          הסביבה.
+        </p>
+      </div>
+
+      <h1>כדי שנוכל להתחיל לעבוד, נקים כעת את המשתמשים מטעמך במערכת WINT</h1>
+      <p>
+        יש למלא את הטופס <strong>בעברית</strong> ולהזין בשדות הבאים את המידע
+        הנדרש לכל משתמש בחשבונך (לאחר הגשת הטופס ניתן להגיש משתמשים נוספים)
+      </p>
+
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
+
+      <div class="user-selection">
+        <label for="userCount">בחר מספר משתמשים:</label>
+        <select id="userCount">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button id="generateForms">צור טפסי משתמש</button>
+      </div>
+
+      <form
+        id="userForm"
+        action="/submit"
+        method="post"
+        class="{% if not forms %}hidden{% endif %}"
+      >
+        <input
+          type="hidden"
+          name="userCount"
+          id="formUserCount"
+          value="{{ user_count }}"
+        />
+        <div id="userEntries">
+          {% if forms %} {% for form in forms %}
+          <div class="user-entry">
+            <h2>משתמש {{ loop.index }}</h2>
+            <!-- Add form fields here -->
+          </div>
+          {% endfor %} {% endif %}
+        </div>
+
+        <div class="warning-text">
+          <p>
+            <strong>
+              <span style="color: #cc0201">
+                ⚠️ שימו לב: אל תחכו שניצור איתכם קשר. חשוב לעקוב באופן פעיל אחר
+                התראות המערכת. ודאו שכל המשתמשים מקבלים התראות דרך אפליקציית
+                WINT לנייד ושמרו את
+                <a
+                  href="https://wint.ai/contact/contact-support/"
+                  target="_blank"
+                  rel="noopener"
+                  >מספרי הטלפון של WINT</a
+                >
+                בטלפון או בספר הכתובות שלכם לגישה מיידית.
+              </span>
+            </strong>
+          </p>
+        </div>
+
+        <div class="next-steps">
+          <p><strong>השלבים הבאים:</strong></p>
+          <ol>
+            <li>
+              <strong>הגדרת משתמש:</strong> לאחר שתספקו את פרטי המשתמש בטבלה
+              לעיל, הצוות שלנו יגדיר את חשבון המשתמש שלכם.
+            </li>
+            <li>
+              <strong>פרטי התחברות:</strong> תקבלו דוא"ל התחברות עם האישורים
+              שלכם, קישורים לסרטוני הדרכה והנחיות שיעזרו לכם להתחיל.
+            </li>
+            <li>
+              <strong>מרכז הדרכה:</strong> השתמשו בקישור שסופק כדי לגשת למרכז
+              ההדרכה שלנו וללמוד על הנושאים המרכזיים: אפליקציה לנייד, פורטל,
+              אירועי מים והפעלה ידנית.
+            </li>
+            <li>
+              <strong>תמיכה:</strong> אנא צרו קשר עם התמיכה 24/7 שלנו לכל סיוע
+              נוסף.
+            </li>
+          </ol>
+        </div>
+
+        <button type="submit">שלח מידע משתמש</button>
+      </form>
+
+      <img
+        src="https://info.wint.ai/hubfs/footer-heb-OP1-550x100px--x2-1.jpg"
+        alt="footer- OP1-550x100px--x2"
+        class="footer-image"
+      />
+
+      <div class="privacy-policy">
+        <p>
+          WINT זקוקה לפרטי הקשר שאתה מספק לנו כדי לפנות אליך לגבי המוצרים
+          והשירותים שלנו. ניתן לבטל את ההרשמה לתכתובות אלה בכל שלב. לקבלת מידע
+          על ביטול הרשמה, וכן לקבלת נוהלי הפרטיות שלנו והמחויבות שלנו להגן על
+          הפרטיות שלך, עיין במדיניות הפרטיות שלנו.
+        </p>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>
