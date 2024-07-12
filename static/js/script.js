@@ -1,149 +1,231 @@
+/**
+ * Handles dynamic form generation for user onboarding.
+ */
 document.addEventListener("DOMContentLoaded", function () {
+  // DOM element references
   const userCountSelect = document.getElementById("userCount");
   const generateFormsBtn = document.getElementById("generateForms");
   const userForm = document.getElementById("userForm");
   const userEntries = document.getElementById("userEntries");
   const formUserCount = document.getElementById("formUserCount");
 
+  /**
+   * Creates a user entry form.
+   * @param {number} index - The index of the user entry.
+   * @returns {HTMLElement} The created user entry form.
+   */
   function createUserEntry(index) {
     const userEntry = document.createElement("div");
     userEntry.className = "user-entry";
     const isHebrew = document.documentElement.lang === "he";
+
+    // Helper function to get localized text
+    const getText = (en, he) => (isHebrew ? he : en);
+
     userEntry.innerHTML = `
-        <h2>${isHebrew ? "משתמש" : "User"} ${index + 1}</h2>
-        <div class="form-group">
-          <label for="user_${index}-firstname">${
-      isHebrew ? "שם פרטי" : "First Name"
-    } *</label>
-          <input type="text" name="user_${index}-firstname" required>
-        </div>
-        <div class="form-group">
-          <label for="user_${index}-lastname">${
-      isHebrew ? "שם משפחה" : "Last Name"
-    } *</label>
-          <input type="text" name="user_${index}-lastname" required>
-        </div>
-        <div class="form-group">
-          <label for="user_${index}-email">${
-      isHebrew ? "דוא״ל עסקי" : "Business Email"
-    } *</label>
-          <input type="email" name="user_${index}-email" required>
-          <div class="field-description">${
-            isHebrew
-              ? "חייב להיות זהה ולפי הדומיין של החברה שלך"
-              : "Must have the same domain as your company."
-          }</div>
-        </div>
-        <div class="form-group">
-          <label for="user_${index}-mobilephone">${
-      isHebrew ? "מספר טלפון נייד" : "Mobile Phone Number"
-    } *</label>
-          <input type="tel" name="user_${index}-mobilephone" required>
-        </div>
-        <div class="form-group">
-          <label for="user_${index}-phone">${
-      isHebrew ? "מספר טלפון במשרד" : "Office Number"
-    }</label>
-          <input type="tel" name="user_${index}-phone">
-        </div>
-        <div class="form-group">
-          <label for="user_${index}-company">${
-      isHebrew ? "שם החברה" : "Company Name"
-    } *</label>
-          <input type="text" name="user_${index}-company" required>
-        </div>
-        <div class="form-group">
-          <label for="user_${index}-jobtitle">${
-      isHebrew ? "תפקיד" : "Job Title"
-    } *</label>
-          <input type="text" name="user_${index}-jobtitle" required>
-        </div>
-        <div class="form-group">
-          <label for="user_${index}-country">${
-      isHebrew ? "מדינה" : "Country"
-    } *</label>
-          <select name="user_${index}-country" required>
-            <option value="">${
-              isHebrew ? "בחר בבקשה" : "Please Select"
-            }</option>
-            <option value="United States">${
-              isHebrew ? "ארצות הברית" : "United States"
-            }</option>
-            <option value="United Kingdom">${
-              isHebrew ? "בריטניה" : "United Kingdom"
-            }</option>
-            <option value="Israel">${isHebrew ? "ישראל" : "Israel"}</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>
-            <input type="checkbox" name="user_${index}-enable_valve_control">
-            <span>${
-              isHebrew
-                ? "אפשר שליטה בפתיחה/סגירה של הברזים"
-                : "Enable Open/Close Valve Control"
-            }</span>
-          </label>
-          <div class="field-description">${
-            isHebrew
-              ? "אני מסכים שמשתמש זה יכול לשלוט מרחוק בברזים באתרים שלי"
-              : "I agree that this user can remotely control the valves on my sites."
-          }</div>
-        </div>
-        <div class="form-group">
-          <label for="user_${index}-escalation_level">${
-      isHebrew ? "רמת האסקלציה למשתמש" : "User Escalation Level"
-    } *</label>
-          <select name="user_${index}-escalation_level" required>
-            <option value="">${
-              isHebrew ? "בחר בבקשה" : "Please Select"
-            }</option>
-            <option value="1. Main contact">${
-              isHebrew ? "1. איש קשר ראשי" : "1. Main contact"
-            }</option>
-            <option value="2. Second contact">${
-              isHebrew ? "2. איש קשר משני" : "2. Second contact"
-            }</option>
-            <option value="3. Third contact">${
-              isHebrew ? "3. איש קשר שלישי" : "3. Third contact"
-            }</option>
-            <option value="4. Fourth contact">${
-              isHebrew ? "4. איש קשר רביעי" : "4. Fourth contact"
-            }</option>
-            <option value="5. Fifth contact">${
-              isHebrew ? "5. איש קשר חמישי" : "5. Fifth contact"
-            }</option>
-            <option value="6. Sixth contact">${
-              isHebrew ? "6. איש קשר שישי" : "6. Sixth contact"
-            }</option>
-            <option value="Emergency">${
-              isHebrew ? "חירום" : "Emergency"
-            }</option>
-            <option value="Email">${isHebrew ? 'דוא"ל בלבד' : "Email"}</option>
-            <option value="none">${isHebrew ? "ללא" : "None"}</option>
-          </select>
-          <div class="field-description">
-            ${
-              isHebrew
-                ? "בחר את העדיפות למשתמש זה לרשימת אסקלציה במקרה של אירוע מים משמעותי ומתמשך. צוות התמיכה 24/7 של WINT ייצור קשר עם הצוות שלך לפי הסדר המצוין ברשימה זו."
-                : "Select the priority for this user to escalate in case of a significant and ongoing water event. Our WINT 24/7 support team will contact your team in the order indicated in this list."
-            }
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="user_${index}-comments">${
-      isHebrew ? "הערות" : "Comments"
-    }</label>
-          <textarea name="user_${index}-comments" placeholder="${
-      isHebrew
-        ? "אנחנו כאן בשבילך! ספר לנו מה על דעתך :)"
-        : "We are here for you! Tell us what's on your mind :)"
-    }"></textarea>
-        </div>
-      `;
+      <h2>${getText("User", "משתמש")} ${index + 1}</h2>
+      ${createFormGroup(
+        index,
+        "firstname",
+        getText("First Name", "שם פרטי"),
+        "text",
+        true
+      )}
+      ${createFormGroup(
+        index,
+        "lastname",
+        getText("Last Name", "שם משפחה"),
+        "text",
+        true
+      )}
+      ${createFormGroup(
+        index,
+        "email",
+        getText("Business Email", "דוא״ל עסקי"),
+        "email",
+        true,
+        getText(
+          "Must have the same domain as your company.",
+          "חייב להיות זהה ולפי הדומיין של החברה שלך"
+        )
+      )}
+      ${createFormGroup(
+        index,
+        "mobilephone",
+        getText("Mobile Phone Number", "מספר טלפון נייד"),
+        "tel",
+        true
+      )}
+      ${createFormGroup(
+        index,
+        "phone",
+        getText("Office Number", "מספר טלפון במשרד"),
+        "tel",
+        false
+      )}
+      ${createFormGroup(
+        index,
+        "company",
+        getText("Company Name", "שם החברה"),
+        "text",
+        true
+      )}
+      ${createFormGroup(
+        index,
+        "jobtitle",
+        getText("Job Title", "תפקיד"),
+        "text",
+        true
+      )}
+      ${createCountrySelect(index, isHebrew)}
+      ${createValveControlCheckbox(index, isHebrew)}
+      ${createEscalationLevelSelect(index, isHebrew)}
+      ${createCommentsArea(index, isHebrew)}
+    `;
     return userEntry;
   }
 
+  /**
+   * Creates a form group HTML string.
+   * @param {number} index - The index of the user entry.
+   * @param {string} name - The name of the form field.
+   * @param {string} label - The label text.
+   * @param {string} type - The input type.
+   * @param {boolean} required - Whether the field is required.
+   * @param {string} [description] - Optional field description.
+   * @returns {string} The HTML string for the form group.
+   */
+  function createFormGroup(
+    index,
+    name,
+    label,
+    type,
+    required,
+    description = ""
+  ) {
+    return `
+      <div class="form-group">
+        <label for="user_${index}-${name}">${label}${required ? " *" : ""}</label>
+        <input type="${type}" name="user_${index}-${name}" id="user_${index}-${name}" ${required ? "required" : ""}>
+        ${
+          description
+            ? `<div class="field-description">${description}</div>`
+            : ""
+        }
+      </div>
+    `;
+  }
+
+  /**
+   * Creates a country select dropdown.
+   * @param {number} index - The index of the user entry.
+   * @param {boolean} isHebrew - Whether the current language is Hebrew.
+   * @returns {string} The HTML string for the country select dropdown.
+   */
+  function createCountrySelect(index, isHebrew) {
+    const getText = (en, he) => (isHebrew ? he : en);
+    return `
+      <div class="form-group">
+        <label for="user_${index}-country">${getText("Country", "מדינה")} *</label>
+        <select name="user_${index}-country" id="user_${index}-country" required>
+          <option value="">${getText("Please Select", "בחר בבקשה")}</option>
+          <option value="United States">${getText(
+            "United States",
+            "ארצות הברית"
+          )}</option>
+          <option value="United Kingdom">${getText(
+            "United Kingdom",
+            "בריטניה"
+          )}</option>
+          <option value="Israel">${getText("Israel", "ישראל")}</option>
+        </select>
+      </div>
+    `;
+  }
+
+  /**
+   * Creates a valve control checkbox.
+   * @param {number} index - The index of the user entry.
+   * @param {boolean} isHebrew - Whether the current language is Hebrew.
+   * @returns {string} The HTML string for the valve control checkbox.
+   */
+  function createValveControlCheckbox(index, isHebrew) {
+    const getText = (en, he) => (isHebrew ? he : en);
+    return `
+      <div class="form-group">
+        <label>
+          <input type="checkbox" name="user_${index}-enable_valve_control" id="user_${index}-enable_valve_control">
+          <span>${getText(
+            "Enable Open/Close Valve Control",
+            "אפשר שליטה בפתיחה/סגירה של הברזים"
+          )}</span>
+        </label>
+        <div class="field-description">
+          ${getText(
+            "I agree that this user can remotely control the valves on my sites.",
+            "אני מסכים שמשתמש זה יכול לשלוט מרחוק בברזים באתרים שלי"
+          )}
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Creates an escalation level select dropdown.
+   * @param {number} index - The index of the user entry.
+   * @param {boolean} isHebrew - Whether the current language is Hebrew.
+   * @returns {string} The HTML string for the escalation level select dropdown.
+   */
+  function createEscalationLevelSelect(index, isHebrew) {
+    const getText = (en, he) => (isHebrew ? he : en);
+    const options = [
+      ["", getText("Please Select", "בחר בבקשה")],
+      ["1. Main contact", getText("1. Main contact", "1. איש קשר ראשי")],
+      ["2. Second contact", getText("2. Second contact", "2. איש קשר משני")],
+      ["3. Third contact", getText("3. Third contact", "3. איש קשר שלישי")],
+      ["4. Fourth contact", getText("4. Fourth contact", "4. איש קשר רביעי")],
+      ["5. Fifth contact", getText("5. Fifth contact", "5. איש קשר חמישי")],
+      ["6. Sixth contact", getText("6. Sixth contact", "6. איש קשר שישי")],
+      ["Emergency", getText("Emergency", "חירום")],
+      ["Email", getText("Email", 'דוא"ל בלבד')],
+      ["none", getText("None", "ללא")],
+    ];
+
+    return `
+      <div class="form-group">
+        <label for="user_${index}-escalation_level">${getText("User Escalation Level", "רמת האסקלציה למשתמש")} *</label>
+        <select name="user_${index}-escalation_level" id="user_${index}-escalation_level" required>
+          ${options
+            .map(([value, text]) => `<option value="${value}">${text}</option>`)
+            .join("")}
+        </select>
+        <div class="field-description">
+          ${getText(
+            "Select the priority for this user to escalate in case of a significant and ongoing water event. Our WINT 24/7 support team will contact your team in the order indicated in this list.",
+            "בחר את העדיפות למשתמש זה לרשימת אסקלציה במקרה של אירוע מים משמעותי ומתמשך. צוות התמיכה 24/7 של WINT ייצור קשר עם הצוות שלך לפי הסדר המצוין ברשימה זו."
+          )}
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Creates a comments textarea.
+   * @param {number} index - The index of the user entry.
+   * @param {boolean} isHebrew - Whether the current language is Hebrew.
+   * @returns {string} The HTML string for the comments textarea.
+   */
+  function createCommentsArea(index, isHebrew) {
+    const getText = (en, he) => (isHebrew ? he : en);
+    return `
+      <div class="form-group">
+        <label for="user_${index}-comments">${getText("Comments", "הערות")}</label>
+        <textarea name="user_${index}-comments" id="user_${index}-comments" placeholder="${getText("We are here for you! Tell us what's on your mind :)", "אנחנו כאן בשבילך! ספר לנו מה על דעתך :)")}"></textarea>
+      </div>
+    `;
+  }
+
+  // Event listener for form generation
   generateFormsBtn.addEventListener("click", function () {
     const userCount = parseInt(userCountSelect.value);
     formUserCount.value = userCount;
@@ -155,12 +237,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Re-populate forms if they exist
-  if (userForm.classList.contains("hidden") === false) {
+  if (!userForm.classList.contains("hidden")) {
     const userCount = parseInt(formUserCount.value);
     userEntries.innerHTML = "";
     for (let i = 0; i < userCount; i++) {
       userEntries.appendChild(createUserEntry(i));
     }
-    userForm.classList.remove("hidden");
   }
 });
