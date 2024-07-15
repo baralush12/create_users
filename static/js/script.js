@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="field-description">
           ${getText(
             "I agree that this user can remotely control the valves on my sites.",
-            "אני מסכים שמשתמש זה יכול לשלוט מרחוק בברזים באתרים שלי"
+            "למשתמש/ת זה יש לתת הרשאה לפתיחה וסגירה של ברזים מרחוק."
           )}
         </div>
       </div>
@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function createEscalationLevelSelect(index, isHebrew) {
     const getText = (en, he) => (isHebrew ? he : en);
     const options = [
-      ["", getText("Please Select", "בחר בבקשה")],
+      ["", getText("Please Select", "יש לבחור כאן")],
       ["1. Main contact", getText("1. Main contact", "1. איש קשר ראשי")],
       ["2. Second contact", getText("2. Second contact", "2. איש קשר משני")],
       ["3. Third contact", getText("3. Third contact", "3. איש קשר שלישי")],
@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="field-description">
           ${getText(
             "Select the priority for this user to escalate in case of a significant and ongoing water event. Our WINT 24/7 support team will contact your team in the order indicated in this list.",
-            "בחר את העדיפות למשתמש זה לרשימת אסקלציה במקרה של אירוע מים משמעותי ומתמשך. צוות התמיכה 24/7 של WINT ייצור קשר עם הצוות שלך לפי הסדר המצוין ברשימה זו."
+            "במקרה של ארוע מים ארוך ומשמעותי, צוות התמיכה 24/7 של WINT ייצור קשר עם הצוות שלך לפי הסדר שיקבע ברשימה הזו."
           )}
         </div>
       </div>
@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return `
       <div class="form-group">
         <label for="user_${index}-comments">${getText("Comments", "הערות")}</label>
-        <textarea name="user_${index}-comments" id="user_${index}-comments" placeholder="${getText("We are here for you! Tell us what's on your mind :)", "אנחנו כאן בשבילך! ספר לנו מה על דעתך :)")}"></textarea>
+        <textarea name="user_${index}-comments" id="user_${index}-comments" placeholder="${getText("We are here for you! Tell us what's on your mind :)", "אנחנו כאן בשבילך! לכל נושא נוסף שחשוב לך :)")}"></textarea>
       </div>
     `;
   }
